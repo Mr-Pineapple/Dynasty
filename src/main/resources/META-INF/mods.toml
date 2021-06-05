@@ -24,3 +24,7 @@ description=""
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"
+
+[modproperties.dynasty]
+    catalogueItemIcon="minecraft:stripped_birch_wood"
+    configuredBackground="minecraft:textures/block/stripped_birch_log.png"
