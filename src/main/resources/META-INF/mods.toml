@@ -1,11 +1,13 @@
 modLoader="javafml"
 loaderVersion="[36,)"
 license="All rights reserved"
+issueTrackerURL="https://github.com/Mr-Pineapple/Dynasty/issues"
 
 [[mods]]
 modId="dynasty"
 version="0.1.0"
 displayName="Dynasty"
+displayURL="https://mr-pineapple.co.uk/"
 logoFile="dynasty.png"
 credits=""
 authors="Mr. Pineapple, Serenity"
