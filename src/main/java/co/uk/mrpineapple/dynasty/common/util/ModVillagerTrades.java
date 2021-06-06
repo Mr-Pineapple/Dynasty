@@ -1,4 +1,4 @@
-package co.uk.mrpineapple.dynasty.common;
+package co.uk.mrpineapple.dynasty.common.util;
 
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
 import com.google.common.collect.ImmutableMap;

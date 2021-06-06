@@ -1,6 +1,6 @@
 package co.uk.mrpineapple.dynasty.core.registry;
 
-import co.uk.mrpineapple.dynasty.common.ModVillagerTrades;
+import co.uk.mrpineapple.dynasty.common.util.ModVillagerTrades;
 import co.uk.mrpineapple.dynasty.core.Dynasty;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
