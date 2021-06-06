@@ -1,5 +1,7 @@
 package co.uk.mrpineapple.dynasty.core;
 
+import co.uk.mrpineapple.dynasty.common.CommonEvents;
+import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -26,6 +28,10 @@ public class Dynasty {
         modInfo = ModLoadingContext.get().getActiveContainer().getModInfo();
 
         ItemRegistry.ITEMS.register(bus);
+        EntityRegistry.PROFESSIONS.register(bus);
+        EntityRegistry.POI_TYPES.register(bus);
+
+        bus.addListener(CommonEvents::onCommonSetup);
     }
 
     @SubscribeEvent
