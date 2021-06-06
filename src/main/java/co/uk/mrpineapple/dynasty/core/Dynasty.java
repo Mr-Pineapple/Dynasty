@@ -29,9 +29,12 @@ public class Dynasty {
         modInfo = ModLoadingContext.get().getActiveContainer().getModInfo();
 
         ItemRegistry.ITEMS.register(bus);
+        BlockRegistry.BLOCKS.register(bus);
+
         EntityRegistry.PROFESSIONS.register(bus);
         EntityRegistry.POI_TYPES.register(bus);
-        BlockRegistry.BLOCKS.register(bus);
+        EntityRegistry.ENTITY_TYPES.register(bus);
+
 
         bus.addListener(CommonEvents::onCommonSetup);
     }
