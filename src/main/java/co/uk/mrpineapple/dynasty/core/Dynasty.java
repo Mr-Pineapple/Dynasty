@@ -1,6 +1,7 @@
 package co.uk.mrpineapple.dynasty.core;
 
 import co.uk.mrpineapple.dynasty.common.CommonEvents;
+import co.uk.mrpineapple.dynasty.core.registry.BlockRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
 import net.minecraft.util.text.StringTextComponent;
@@ -30,6 +31,7 @@ public class Dynasty {
         ItemRegistry.ITEMS.register(bus);
         EntityRegistry.PROFESSIONS.register(bus);
         EntityRegistry.POI_TYPES.register(bus);
+        BlockRegistry.BLOCKS.register(bus);
 
         bus.addListener(CommonEvents::onCommonSetup);
     }

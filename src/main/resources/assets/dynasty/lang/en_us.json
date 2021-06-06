@@ -1,4 +1,6 @@
 {
   "item.dynasty.gold_coin": "Gold Coins",
-  "entity.minecraft.villager.dynasty.blacksmith": "Blacksmith"
+  "entity.minecraft.villager.dynasty.blacksmith": "Blacksmith",
+
+  "block.dynasty.coin_press": "Coin Press"
 }
