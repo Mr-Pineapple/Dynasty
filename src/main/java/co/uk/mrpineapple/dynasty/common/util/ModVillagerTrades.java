@@ -77,7 +77,7 @@ public class ModVillagerTrades {
 
     public static class ItemsForGoldCoinsTrade implements net.minecraft.entity.merchant.villager.VillagerTrades.ITrade {
         private final ItemStack itemStack;
-        private final int goldcoinCost;
+        private final int goldCoinCost;
         private final int numberOfItems;
         private final int maxUses;
         private final int villagerXp;
@@ -101,7 +101,7 @@ public class ModVillagerTrades {
 
         public ItemsForGoldCoinsTrade(ItemStack p_i50532_1_, int p_i50532_2_, int p_i50532_3_, int p_i50532_4_, int p_i50532_5_, float p_i50532_6_) {
             this.itemStack = p_i50532_1_;
-            this.goldcoinCost = p_i50532_2_;
+            this.goldCoinCost = p_i50532_2_;
             this.numberOfItems = p_i50532_3_;
             this.maxUses = p_i50532_4_;
             this.villagerXp = p_i50532_5_;
@@ -110,7 +110,7 @@ public class ModVillagerTrades {
 
         @Override
         public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
-            return new MerchantOffer(new ItemStack(ItemRegistry.GOLD_COIN.get(), this.goldcoinCost), new ItemStack(this.itemStack.getItem(), this.numberOfItems), this.maxUses, this.villagerXp, this.priceMultiplier);
+            return new MerchantOffer(new ItemStack(ItemRegistry.GOLD_COIN.get(), this.goldCoinCost), new ItemStack(this.itemStack.getItem(), this.numberOfItems), this.maxUses, this.villagerXp, this.priceMultiplier);
         }
     }
 }
