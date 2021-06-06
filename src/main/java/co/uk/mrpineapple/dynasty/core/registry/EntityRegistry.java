@@ -1,15 +1,18 @@
 package co.uk.mrpineapple.dynasty.core.registry;
 
+import co.uk.mrpineapple.dynasty.common.entity.passive.BasicVillagerEntity;
 import co.uk.mrpineapple.dynasty.common.util.ModVillagerTrades;
 import co.uk.mrpineapple.dynasty.core.Dynasty;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraftforge.fml.RegistryObject;
@@ -44,4 +47,11 @@ public class EntityRegistry {
 
         VillagerTrades.TRADES.put(BLACKSMITH.get(), new Int2ObjectOpenHashMap<>(ImmutableMap.of(1, blacksmithLevel1)));
     }
+
+
+    public static final RegistryObject<EntityType<BasicVillagerEntity>> BASIC_VILLAGER = ENTITY_TYPES
+            .register("basic_villager",
+                    () -> EntityType.Builder.<BasicVillagerEntity>of(BasicVillagerEntity::new, EntityClassification.MONSTER)
+                            .sized(0.6f, 1.95f)
+                            .build(new ResourceLocation(Dynasty.ID, "basic_villager").toString()));
 }

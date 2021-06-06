@@ -1,6 +1,7 @@
 {
   "item.dynasty.gold_coin": "Gold Coins",
   "entity.minecraft.villager.dynasty.blacksmith": "Blacksmith",
-
+  "dialogue.dynasty.basicvillager.hello":  "Hello",
+  "dialogue.dynasty.basicvillager.lovelyday":  "What a lovely day!",
   "block.dynasty.coin_press": "Coin Press"
 }
