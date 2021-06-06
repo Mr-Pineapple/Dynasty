@@ -1,22 +1,18 @@
 package co.uk.mrpineapple.dynasty.core;
 
 import co.uk.mrpineapple.dynasty.common.CommonEvents;
-import co.uk.mrpineapple.dynasty.common.entity.passive.BasicVillagerEntity;
 import co.uk.mrpineapple.dynasty.core.registry.BlockRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.TileEntityRegistry;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 
