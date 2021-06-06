@@ -4,6 +4,7 @@ import co.uk.mrpineapple.dynasty.common.CommonEvents;
 import co.uk.mrpineapple.dynasty.core.registry.BlockRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
+import co.uk.mrpineapple.dynasty.core.registry.TileEntityRegistry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -30,6 +31,7 @@ public class Dynasty {
 
         ItemRegistry.ITEMS.register(bus);
         BlockRegistry.BLOCKS.register(bus);
+        TileEntityRegistry.TILE_ENTITY.register(bus);
 
         EntityRegistry.PROFESSIONS.register(bus);
         EntityRegistry.POI_TYPES.register(bus);
