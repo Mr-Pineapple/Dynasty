@@ -1,8 +1,6 @@
 package co.uk.mrpineapple.dynasty.core;
 
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -13,7 +11,6 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraft.item.ItemGroup;
 
 import java.util.UUID;
 

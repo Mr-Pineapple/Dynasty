@@ -11,8 +11,6 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> GOLD_COIN = register("gold_coin");
 
-
-
     public static RegistryObject<Item> register(String name) {
         RegistryObject<Item> item = ITEMS.register(name, () -> new Item(new Item.Properties()));
         return item;
