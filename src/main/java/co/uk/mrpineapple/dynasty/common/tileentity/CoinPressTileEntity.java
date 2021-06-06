@@ -104,10 +104,21 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
     }
 
     private void pressItem() {
-        this.press.set(0, new ItemStack(ItemRegistry.GOLD_COIN.get()).copy());
-        CompoundNBT compound = new CompoundNBT();
-        this.writePressItem(compound);
-        TileEntityUtil.sendUpdatePacket(this, super.save(compound));
+        if(!this.press.get(0).isEmpty()) {
+            if(this.pressTime < this.pressTotalTime) {
+                this.pressTime++;
+                System.out.println("Add to pressTime");
+                if(this.pressTime == this.pressTotalTime) {
+                    System.out.println("pressTime = pressTotalTime");
+                    this.press.set(0, new ItemStack(ItemRegistry.GOLD_COIN.get()).copy());
+
+                    CompoundNBT compound = new CompoundNBT();
+                    this.writePressItem(compound);
+                    this.writePressTimes(compound);
+                    TileEntityUtil.sendUpdatePacket(this, super.save(compound));
+                }
+            }
+        }
 
     }
 
