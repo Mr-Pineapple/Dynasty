@@ -35,7 +35,7 @@ public class EntityRegistry {
 
     public static void createTradeData() {
         VillagerTrades.ITrade[] blacksmithLevel1 = new VillagerTrades.ITrade[]{
-                new ModVillagerTrades.GoldCoinsForItemsTrade(Items.IRON_SWORD,3,16,4),
+                new ModVillagerTrades.ItemsForGoldCoinsTrade(Items.IRON_SWORD,3,1,4),
         };
 
         VillagerTrades.TRADES.put(BLACKSMITH.get(), new Int2ObjectOpenHashMap<>(ImmutableMap.of(1, blacksmithLevel1)));
