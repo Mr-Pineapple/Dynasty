@@ -29,6 +29,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class BasicVillagerEntity extends GolemEntity {
+
+    public String chat = null;
     protected static final DataParameter<Byte> DATA_FLAGS_ID = EntityDataManager.defineId(IronGolemEntity.class, DataSerializers.BYTE);
 
     public BasicVillagerEntity(EntityType<? extends GolemEntity> p_i50267_1_, World p_i50267_2_) {
@@ -109,27 +111,30 @@ public class BasicVillagerEntity extends GolemEntity {
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand hand) {
-        String chat = null;
-        int randomChat = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        switch (randomChat)
-        {
-            case 1:
-                chat = "dialogue.dynasty.basicvillager.hello";
-                break;
+        if(this.isCustomNameVisible() == false) {
+            int randomChat = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+            switch (randomChat) {
+                case 1:
+                    chat = "dialogue.dynasty.basicvillager.hello";
+                    break;
 
-            case 2:
-                chat = "dialogue.dynasty.basicvillager.lovelyday";
-                break;
+                case 2:
+                    chat = "dialogue.dynasty.basicvillager.lovelyday";
+                    break;
+
+                case 3:
+                    chat = "dialogue.dynasty.basicvillager.meet";
+                    break;
+            }
+
+            this.setCustomName(new TranslationTextComponent(chat).withStyle(TextFormatting.GOLD).withStyle(TextFormatting.BOLD));
+            this.setCustomNameVisible(true);
+
+            Timer timer = new Timer(2000, arg0 -> removeChat());
+            timer.setRepeats(false);
+            timer.start();
         }
-
-        this.setCustomName(new TranslationTextComponent(chat).withStyle(TextFormatting.GOLD).withStyle(TextFormatting.BOLD));
-        this.setCustomNameVisible(true);
-
-        Timer timer = new Timer(2000, arg0 -> removeChat());
-        timer.setRepeats(false);
-        timer.start();
-
-        return ActionResultType.sidedSuccess(this.level.isClientSide);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
 
     }
 
@@ -138,6 +143,7 @@ public class BasicVillagerEntity extends GolemEntity {
         String chat = "";
         this.setCustomName(new TranslationTextComponent(chat));
         this.setCustomNameVisible(false);
+
     }
 
     @Override

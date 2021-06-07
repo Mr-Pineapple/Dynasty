@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @OnlyIn(Dist.CLIENT)
 public abstract class AbstractBasicVillagerRenderer<T extends BasicVillagerEntity, M extends BasicVillagerModel<T>> extends BipedRenderer<T, M> {
 
-    private static final ResourceLocation VILLAGER_LOCATION = new ResourceLocation(Dynasty.ID, "/textures/entity/basicvillager/stevefarmer.png");
+    private static final ResourceLocation VILLAGER_LOCATION = new ResourceLocation(Dynasty.ID, "/textures/entity/basicvillager/peasant.png");
 
 
     protected AbstractBasicVillagerRenderer(EntityRendererManager p_i50974_1_, M p_i50974_2_, M p_i50974_3_, M p_i50974_4_) {
