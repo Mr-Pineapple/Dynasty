@@ -4,6 +4,7 @@
   "item.dynasty.copper_ingot": "Copper Ingot",
 
   "entity.minecraft.villager.dynasty.blacksmith": "Blacksmith",
+  "entity.dynasty.basic_villager.none": "Villager",
 
   "dialogue.dynasty.basicvillager.hello":  "Hello.",
   "dialogue.dynasty.basicvillager.lovelyday":  "What a lovely day!",

@@ -1,68 +1,59 @@
 package co.uk.mrpineapple.dynasty.common.entity.passive;
 
 
+import co.uk.mrpineapple.dynasty.common.ai.villager.LootAtTalkingTo;
+
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.merchant.villager.VillagerData;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.annotation.Nullable;
 import javax.swing.Timer;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class BasicVillagerEntity extends GolemEntity {
-
+public class BasicVillagerEntity extends VillagerEntity {
     public String chat = null;
-    boolean nameActive = false;
-    protected static final DataParameter<Byte> DATA_FLAGS_ID = EntityDataManager.defineId(IronGolemEntity.class, DataSerializers.BYTE);
+    public boolean nameActive = false;
+    private static final DataParameter<VillagerData> DATA_VILLAGER_DATA = EntityDataManager.defineId(VillagerEntity.class, DataSerializers.VILLAGER_DATA);
 
-    public BasicVillagerEntity(EntityType<? extends GolemEntity> p_i50267_1_, World world) {
-        super(p_i50267_1_, world);
+    public BasicVillagerEntity(EntityType<? extends VillagerEntity> p_i50182_1_, World world) {
+        super(p_i50182_1_, world);
     }
 
 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
-        this.goalSelector.addGoal(2, new ReturnToVillageGoal(this, 0.6D, false));
-        this.goalSelector.addGoal(4, new PatrolVillageGoal(this, 0.6D));
-        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.setCustomNameVisible(false);
+        if(!this.isSleeping())
+        {
+            this.goalSelector.addGoal(1, new LootAtTalkingTo(this));
+            this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
+            this.goalSelector.addGoal(2, new ReturnToVillageGoal(this, 0.6D, false));
+            this.goalSelector.addGoal(4, new PatrolVillageGoal(this, 0.6D));
+            this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+            this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+            this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        }
+
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
-    }
 
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -96,7 +87,6 @@ public class BasicVillagerEntity extends GolemEntity {
               //  this.level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), 4.0D * ((double)this.random.nextFloat() - 0.5D), 0.5D, ((double)this.random.nextFloat() - 0.5D) * 4.0D);
             }
         }
-
     }
 
     @Override
@@ -118,7 +108,7 @@ public class BasicVillagerEntity extends GolemEntity {
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand hand) {
+    public ActionResultType mobInteract(PlayerEntity playerEntity, Hand hand) {
         if(this.nameActive == false) {
             this.nameActive = true;
             int randomChat = ThreadLocalRandom.current().nextInt(1, 3 + 1);
@@ -146,17 +136,12 @@ public class BasicVillagerEntity extends GolemEntity {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> p_190948_3_, ITooltipFlag p_190948_4_) {
-    }
-
     public void removeChat()
     {
         String chat = "";
         this.setCustomName(new TranslationTextComponent(chat));
         this.setCustomNameVisible(false);
         this.nameActive = false;
-
     }
 
     @Override
@@ -168,4 +153,30 @@ public class BasicVillagerEntity extends GolemEntity {
         return false;
     }
 
+    @Override
+    @Nullable
+    protected SoundEvent getAmbientSound() {
+       return null;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_VILLAGER_DATA, new VillagerData(VillagerType.PLAINS, VillagerProfession.NONE, 1));
+    }
+
+    @Override
+    public VillagerData getVillagerData() {
+        return this.entityData.get(DATA_VILLAGER_DATA);
+    }
+
+    @Override
+    public void setVillagerData(VillagerData p_213753_1_) {
+        VillagerData villagerdata = this.getVillagerData();
+        if (villagerdata.getProfession() != p_213753_1_.getProfession()) {
+            this.offers = null;
+        }
+
+        this.entityData.set(DATA_VILLAGER_DATA, p_213753_1_);
+    }
 }
