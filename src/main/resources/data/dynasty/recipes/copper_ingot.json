@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dynasty:copper_ore"
+  },
+  "result": "dynasty:copper_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}

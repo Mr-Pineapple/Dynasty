@@ -10,6 +10,10 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Dynasty.ID);
 
     public static final RegistryObject<Item> GOLD_COIN = register("gold_coin");
+    public static final RegistryObject<Item> COPPER_COIN = register("copper_coin");
+
+    public static final RegistryObject<Item> COPPER_INGOT = register("copper_ingot");
+
 
     public static RegistryObject<Item> register(String name) {
         RegistryObject<Item> item = ITEMS.register(name, () -> new Item(new Item.Properties()));

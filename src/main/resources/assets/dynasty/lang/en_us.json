@@ -1,5 +1,7 @@
 {
   "item.dynasty.gold_coin": "Gold Coins",
+  "item.dynasty.copper_coin": "Copper Coins",
+  "item.dynasty.copper_ingot": "Copper Ingot",
 
   "entity.minecraft.villager.dynasty.blacksmith": "Blacksmith",
 
