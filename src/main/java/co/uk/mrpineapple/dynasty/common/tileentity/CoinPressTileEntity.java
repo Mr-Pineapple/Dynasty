@@ -162,7 +162,7 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
     }
 
     @Override
-    public int[] getSlotsForFace(Direction p_180463_1_) {
+    public int[] getSlotsForFace(Direction direction) {
         return PRESS_SLOT;
     }
 
