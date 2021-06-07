@@ -2,6 +2,7 @@ package co.uk.mrpineapple.dynasty.common.entity.passive;
 
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -11,6 +12,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -20,21 +22,27 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.annotation.Nullable;
 import javax.swing.Timer;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 
 public class BasicVillagerEntity extends GolemEntity {
 
     public String chat = null;
+    boolean nameActive = false;
     protected static final DataParameter<Byte> DATA_FLAGS_ID = EntityDataManager.defineId(IronGolemEntity.class, DataSerializers.BYTE);
 
-    public BasicVillagerEntity(EntityType<? extends GolemEntity> p_i50267_1_, World p_i50267_2_) {
-        super(p_i50267_1_, p_i50267_2_);
+    public BasicVillagerEntity(EntityType<? extends GolemEntity> p_i50267_1_, World world) {
+        super(p_i50267_1_, world);
     }
 
 
@@ -62,17 +70,17 @@ public class BasicVillagerEntity extends GolemEntity {
     }
 
     @Override
-    protected int decreaseAirSupply(int p_70682_1_) {
-        return p_70682_1_;
+    protected int decreaseAirSupply(int air) {
+        return air;
     }
 
     @Override
-    protected void doPush(Entity p_82167_1_) {
-        if (p_82167_1_ instanceof IMob && !(p_82167_1_ instanceof CreeperEntity) && this.getRandom().nextInt(20) == 0) {
-            this.setTarget((LivingEntity)p_82167_1_);
+    protected void doPush(Entity entity) {
+        if (entity instanceof IMob && !(entity instanceof CreeperEntity) && this.getRandom().nextInt(20) == 0) {
+            this.setTarget((LivingEntity)entity);
         }
 
-        super.doPush(p_82167_1_);
+        super.doPush(entity);
     }
 
     @Override
@@ -85,22 +93,22 @@ public class BasicVillagerEntity extends GolemEntity {
             BlockPos pos = new BlockPos(i, j, k);
             BlockState blockstate = this.level.getBlockState(pos);
             if (!blockstate.isAir(this.level, pos)) {
-                this.level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), 4.0D * ((double)this.random.nextFloat() - 0.5D), 0.5D, ((double)this.random.nextFloat() - 0.5D) * 4.0D);
+              //  this.level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double)this.random.nextFloat() - 0.5D) * (double)this.getBbWidth(), 4.0D * ((double)this.random.nextFloat() - 0.5D), 0.5D, ((double)this.random.nextFloat() - 0.5D) * 4.0D);
             }
         }
 
     }
 
     @Override
-    public boolean hurt(DamageSource p_70097_1_, float p_70097_2_) {
-        boolean flag = super.hurt(p_70097_1_, p_70097_2_);
+    public boolean hurt(DamageSource source, float p_70097_2_) {
+        boolean flag = super.hurt(source, p_70097_2_);
         this.playSound(SoundEvents.PLAYER_ATTACK_NODAMAGE, 1.0F, 1.0F);
         return flag;
     }
 
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.PLAYER_HURT;
     }
 
@@ -111,7 +119,8 @@ public class BasicVillagerEntity extends GolemEntity {
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand hand) {
-        if(this.isCustomNameVisible() == false) {
+        if(this.nameActive == false) {
+            this.nameActive = true;
             int randomChat = ThreadLocalRandom.current().nextInt(1, 3 + 1);
             switch (randomChat) {
                 case 1:
@@ -129,7 +138,6 @@ public class BasicVillagerEntity extends GolemEntity {
 
             this.setCustomName(new TranslationTextComponent(chat).withStyle(TextFormatting.GOLD).withStyle(TextFormatting.BOLD));
             this.setCustomNameVisible(true);
-
             Timer timer = new Timer(2000, arg0 -> removeChat());
             timer.setRepeats(false);
             timer.start();
@@ -138,17 +146,22 @@ public class BasicVillagerEntity extends GolemEntity {
 
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> p_190948_3_, ITooltipFlag p_190948_4_) {
+    }
+
     public void removeChat()
     {
         String chat = "";
         this.setCustomName(new TranslationTextComponent(chat));
         this.setCustomNameVisible(false);
+        this.nameActive = false;
 
     }
 
     @Override
-    public void die(DamageSource p_70645_1_) {
-        super.die(p_70645_1_);
+    public void die(DamageSource source) {
+        super.die(source);
     }
 
     public boolean isUnderWaterConverting() {

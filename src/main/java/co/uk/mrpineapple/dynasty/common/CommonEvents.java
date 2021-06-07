@@ -2,6 +2,7 @@ package co.uk.mrpineapple.dynasty.common;
 
 import co.uk.mrpineapple.dynasty.client.entity.render.BasicVillagerRenderer;
 import co.uk.mrpineapple.dynasty.common.entity.passive.BasicVillagerEntity;
+import co.uk.mrpineapple.dynasty.common.world.gen.OreGeneration;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ public class CommonEvents {
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         EntityRegistry.createTradeData();
         EntityRegistry.registerBlacksmithPOI();
+
+        OreGeneration.registerOres();
     }
 
     public static void attributes(final FMLCommonSetupEvent event)
@@ -22,6 +25,7 @@ public class CommonEvents {
             GlobalEntityTypeAttributes.put(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerEntity.createAttributes().build());
         });
     }
+
 
     @SubscribeEvent
     public static void renderEntities(FMLClientSetupEvent event) {

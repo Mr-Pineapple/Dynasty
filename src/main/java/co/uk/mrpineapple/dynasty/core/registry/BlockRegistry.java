@@ -1,6 +1,7 @@
 package co.uk.mrpineapple.dynasty.core.registry;
 
 import co.uk.mrpineapple.dynasty.common.block.CoinPressBlock;
+import co.uk.mrpineapple.dynasty.common.block.CopperOreBlock;
 import co.uk.mrpineapple.dynasty.core.Dynasty;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -15,6 +16,8 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dynasty.ID);
 
     public static final RegistryObject<Block> COIN_PRESS = register("coin_press", CoinPressBlock::new);
+
+    public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", CopperOreBlock::new);
 
     public static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
