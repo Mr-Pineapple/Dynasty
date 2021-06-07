@@ -105,7 +105,7 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
 
     private void pressItem() {
         if(!this.press.get(0).isEmpty()) {
-            if(this.pressTime < this.pressTotalTime) {
+            if(this.pressTime < this.pressTotalTime && isPowered()) {
                 this.pressTime++;
                 if(this.pressTime == this.pressTotalTime) {
                     this.press.set(0, new ItemStack(ItemRegistry.GOLD_COIN.get()).copy());
@@ -120,6 +120,7 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
 
     }
 
+    //TODO: Add generator and logic to power Coin Press - Possibility of redstone powering?
     boolean isPowered() {
         return true;
     }
