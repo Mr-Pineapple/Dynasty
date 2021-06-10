@@ -3,10 +3,13 @@ package co.uk.mrpineapple.dynasty.common.entity.passive;
 
 import co.uk.mrpineapple.dynasty.common.ai.villager.LootAtTalkingTo;
 
+import co.uk.mrpineapple.dynasty.common.entity.neutral.GuardEntity;
+import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.brain.sensor.GolemLastSeenSensor;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -15,17 +18,23 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
 import javax.annotation.Nullable;
 import javax.swing.Timer;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 
 public class BasicVillagerEntity extends VillagerEntity {
@@ -55,9 +64,68 @@ public class BasicVillagerEntity extends VillagerEntity {
     }
 
 
+    @Nullable
+    private GuardEntity trySpawnGolem(ServerWorld p_213759_1_) {
+        BlockPos blockpos = this.blockPosition();
+
+        for(int i = 0; i < 10; ++i) {
+            double d0 = (double)(p_213759_1_.random.nextInt(16) - 8);
+            double d1 = (double)(p_213759_1_.random.nextInt(16) - 8);
+            BlockPos blockpos1 = this.findSpawnPositionForGolemInColumn(blockpos, d0, d1);
+            if (blockpos1 != null) {
+                GuardEntity guardEntity = EntityRegistry.GUARD.get().create(p_213759_1_, (CompoundNBT)null, (ITextComponent)null, (PlayerEntity)null, blockpos1, SpawnReason.MOB_SUMMONED, false, false);
+                if (guardEntity != null) {
+                    if (guardEntity.checkSpawnRules(p_213759_1_, SpawnReason.MOB_SUMMONED) && guardEntity.checkSpawnObstruction(p_213759_1_)) {
+                        p_213759_1_.addFreshEntityWithPassengers(guardEntity);
+                        return guardEntity;
+                    }
+
+                    guardEntity.remove();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private BlockPos findSpawnPositionForGolemInColumn(BlockPos p_241433_1_, double p_241433_2_, double p_241433_4_) {
+        int i = 6;
+        BlockPos blockpos = p_241433_1_.offset(p_241433_2_, 6.0D, p_241433_4_);
+        BlockState blockstate = this.level.getBlockState(blockpos);
+
+        for(int j = 6; j >= -6; --j) {
+            BlockPos blockpos1 = blockpos;
+            BlockState blockstate1 = blockstate;
+            blockpos = blockpos.below();
+            blockstate = this.level.getBlockState(blockpos);
+            if ((blockstate1.isAir() || blockstate1.getMaterial().isLiquid()) && blockstate.getMaterial().isSolidBlocking()) {
+                return blockpos1;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public void spawnGolemIfNeeded(ServerWorld p_242367_1_, long p_242367_2_, int p_242367_4_) {
+        if (this.wantsToSpawnGolem(p_242367_2_)) {
+            AxisAlignedBB axisalignedbb = this.getBoundingBox().inflate(10.0D, 10.0D, 10.0D);
+            List<BasicVillagerEntity> list = p_242367_1_.getEntitiesOfClass(BasicVillagerEntity.class, axisalignedbb);
+            List<BasicVillagerEntity> list1 = list.stream().filter((p_226554_2_) -> {
+                return p_226554_2_.wantsToSpawnGolem(p_242367_2_);
+            }).limit(5L).collect(Collectors.toList());
+            if (list1.size() >= p_242367_4_) {
+                GuardEntity guardEntity = (GuardEntity) this.trySpawnGolem(p_242367_1_);
+                if (guardEntity != null) {
+                    list.forEach(GolemLastSeenSensor::golemDetected);
+                }
+            }
+        }
+    }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.35D);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 100.0D).add(Attributes.MOVEMENT_SPEED, 0.35D);
     }
 
     @Override

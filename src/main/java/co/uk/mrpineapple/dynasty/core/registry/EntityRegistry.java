@@ -1,5 +1,6 @@
 package co.uk.mrpineapple.dynasty.core.registry;
 
+import co.uk.mrpineapple.dynasty.common.entity.neutral.GuardEntity;
 import co.uk.mrpineapple.dynasty.common.entity.passive.BasicVillagerEntity;
 import co.uk.mrpineapple.dynasty.common.util.ModVillagerTrades;
 import co.uk.mrpineapple.dynasty.core.Dynasty;
@@ -51,7 +52,13 @@ public class EntityRegistry {
 
     public static final RegistryObject<EntityType<BasicVillagerEntity>> BASIC_VILLAGER = ENTITY_TYPES
             .register("basic_villager",
-                    () -> EntityType.Builder.<BasicVillagerEntity>of(BasicVillagerEntity::new, EntityClassification.MONSTER)
+                    () -> EntityType.Builder.<BasicVillagerEntity>of(BasicVillagerEntity::new, EntityClassification.CREATURE)
                             .sized(0.6f, 1.95f)
                             .build(new ResourceLocation(Dynasty.ID, "basic_villager").toString()));
+
+    public static final RegistryObject<EntityType<GuardEntity>> GUARD = ENTITY_TYPES
+            .register("guard",
+                    () -> EntityType.Builder.<GuardEntity>of(GuardEntity::new, EntityClassification.CREATURE)
+                            .sized(0.6f, 1.95f)
+                            .build(new ResourceLocation(Dynasty.ID, "guard").toString()));
 }

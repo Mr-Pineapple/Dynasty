@@ -1,6 +1,8 @@
 package co.uk.mrpineapple.dynasty.common;
 
 import co.uk.mrpineapple.dynasty.client.entity.render.BasicVillagerRenderer;
+import co.uk.mrpineapple.dynasty.client.entity.render.GuardRenderer;
+import co.uk.mrpineapple.dynasty.common.entity.neutral.GuardEntity;
 import co.uk.mrpineapple.dynasty.common.entity.passive.BasicVillagerEntity;
 import co.uk.mrpineapple.dynasty.common.world.gen.OreGeneration;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
@@ -24,11 +26,16 @@ public class CommonEvents {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerEntity.createAttributes().build());
         });
+
+        DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put(EntityRegistry.GUARD.get(), GuardEntity.createAttributes().build());
+        });
     }
 
 
     @SubscribeEvent
     public static void renderEntities(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.GUARD.get(), GuardRenderer::new);
     }
 }
