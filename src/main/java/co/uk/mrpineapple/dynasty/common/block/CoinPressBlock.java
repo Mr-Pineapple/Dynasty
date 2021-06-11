@@ -2,6 +2,7 @@ package co.uk.mrpineapple.dynasty.common.block;
 
 import co.uk.mrpineapple.dynasty.common.tileentity.CoinPressTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,4 +51,8 @@ public class CoinPressBlock extends Block {
         return new CoinPressTileEntity();
     }
 
+    @Override
+    public BlockRenderType getRenderShape(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 }

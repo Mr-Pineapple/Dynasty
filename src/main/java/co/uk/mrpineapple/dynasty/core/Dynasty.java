@@ -1,5 +1,6 @@
 package co.uk.mrpineapple.dynasty.core;
 
+import co.uk.mrpineapple.dynasty.client.ClientEvents;
 import co.uk.mrpineapple.dynasty.common.CommonEvents;
 import co.uk.mrpineapple.dynasty.core.registry.BlockRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
@@ -41,6 +42,8 @@ public class Dynasty {
         bus.addListener(CommonEvents::onCommonSetup);
         bus.addListener(CommonEvents::attributes);
         bus.addListener(CommonEvents::renderEntities);
+
+        bus.addListener(ClientEvents::onClientSetup);
     }
 
     @SubscribeEvent
