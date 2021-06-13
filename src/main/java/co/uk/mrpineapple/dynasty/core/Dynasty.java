@@ -37,7 +37,7 @@ public class Dynasty {
         EntityRegistry.PROFESSIONS.register(bus);
         EntityRegistry.POI_TYPES.register(bus);
         EntityRegistry.ENTITY_TYPES.register(bus);
-        
+
         bus.addListener(CommonEvents::onCommonSetup);
         bus.addListener(ClientEvents::onClientSetup);
     }

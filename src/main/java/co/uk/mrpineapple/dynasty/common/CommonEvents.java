@@ -18,14 +18,14 @@ public class CommonEvents {
         EntityRegistry.createTradeData();
         EntityRegistry.registerBlacksmithPOI();
 
-        attributes();
+        attributes(event);
         renderEntities();
 
         OreGeneration.registerOres();
     }
 
-    public static void attributes() {
-        DeferredWorkQueue.runLater(() -> {
+    public static void attributes(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
             GlobalEntityTypeAttributes.put(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerEntity.createAttributes().build());
             GlobalEntityTypeAttributes.put(EntityRegistry.GUARD.get(), GuardEntity.createAttributes().build());
         });
