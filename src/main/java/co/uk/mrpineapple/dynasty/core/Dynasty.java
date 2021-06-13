@@ -23,7 +23,7 @@ import java.util.UUID;
 @Mod(Dynasty.ID)
 public class Dynasty {
     public static final String ID = "dynasty";
-    static IModInfo modInfo;
+    public static IModInfo modInfo;
 
     public Dynasty() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -37,12 +37,8 @@ public class Dynasty {
         EntityRegistry.PROFESSIONS.register(bus);
         EntityRegistry.POI_TYPES.register(bus);
         EntityRegistry.ENTITY_TYPES.register(bus);
-
-
+        
         bus.addListener(CommonEvents::onCommonSetup);
-        bus.addListener(CommonEvents::attributes);
-        bus.addListener(CommonEvents::renderEntities);
-
         bus.addListener(ClientEvents::onClientSetup);
     }
 

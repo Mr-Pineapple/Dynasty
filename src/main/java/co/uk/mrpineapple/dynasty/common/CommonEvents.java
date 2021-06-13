@@ -18,23 +18,21 @@ public class CommonEvents {
         EntityRegistry.createTradeData();
         EntityRegistry.registerBlacksmithPOI();
 
+        attributes();
+        renderEntities();
+
         OreGeneration.registerOres();
     }
 
-    public static void attributes(final FMLCommonSetupEvent event)
-    {
+    public static void attributes() {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerEntity.createAttributes().build());
-        });
-
-        DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(EntityRegistry.GUARD.get(), GuardEntity.createAttributes().build());
         });
     }
 
 
-    @SubscribeEvent
-    public static void renderEntities(FMLClientSetupEvent event) {
+    public static void renderEntities() {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.BASIC_VILLAGER.get(), BasicVillagerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.GUARD.get(), GuardRenderer::new);
     }
