@@ -14,12 +14,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Dynasty.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Dynasty.ID, bus = EventBusSubscriber.Bus.FORGE)
 @Mod(Dynasty.ID)
 public class Dynasty {
     public static final String ID = "dynasty";
