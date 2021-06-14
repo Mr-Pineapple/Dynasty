@@ -17,6 +17,7 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dynasty.ID);
 
     public static final RegistryObject<Block> COIN_PRESS = register("coin_press", CoinPressBlock::new);
+    public static final RegistryObject<Block> GENERATOR = register("generator", GeneratorBlock::new);
 
     public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", CopperOreBlock::new);
 
