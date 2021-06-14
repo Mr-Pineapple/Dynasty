@@ -73,9 +73,9 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
         return false;
     }
 
-    private void resetPosition(int cookTime) {
+    private void resetPosition(int pressTime) {
         this.pressTime = 0;
-        this.pressTotalTime = cookTime;
+        this.pressTotalTime = pressTime;
 
         CompoundNBT compound = new CompoundNBT();
         this.writePressItem(compound);
