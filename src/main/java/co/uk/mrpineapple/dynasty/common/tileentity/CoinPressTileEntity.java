@@ -33,6 +33,10 @@ public class CoinPressTileEntity extends BaseTileEntity implements IClearable, I
         super(TileEntityRegistry.COIN_PRESS.get());
     }
 
+    public NonNullList<ItemStack> getPress() {
+        return press;
+    }
+
     public void removeItem(PlayerEntity player) {
         if(!this.press.get(0).isEmpty()) {
             double posX = worldPosition.getX() + 0.3 + 0.4;

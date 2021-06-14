@@ -26,6 +26,10 @@ public class GeneratorTileEntity extends BaseTileEntity implements IClearable, I
         super(TileEntityRegistry.GENERATOR.get());
     }
 
+    public NonNullList<ItemStack> getGenerator() {
+        return generator;
+    }
+
     public boolean addItem(ItemStack stack) {
         for(int i = 0; i < this.generator.size(); i++) {
             if(this.generator.get(i).isEmpty()) {

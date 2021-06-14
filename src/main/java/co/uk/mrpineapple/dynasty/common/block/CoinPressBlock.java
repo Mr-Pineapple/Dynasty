@@ -1,11 +1,13 @@
 package co.uk.mrpineapple.dynasty.common.block;
 
 import co.uk.mrpineapple.dynasty.common.tileentity.CoinPressTileEntity;
+import co.uk.mrpineapple.dynasty.common.tileentity.GeneratorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
@@ -39,6 +41,17 @@ public class CoinPressBlock extends Block {
             }
         }
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public void onRemove(BlockState oldState, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if(oldState.getBlock() != newState.getBlock()) {
+            TileEntity tileEntity = world.getBlockEntity(pos);
+            if(tileEntity instanceof CoinPressTileEntity) {
+                CoinPressTileEntity coinPressTileEntity = (CoinPressTileEntity) tileEntity;
+                InventoryHelper.dropContents(world, pos, coinPressTileEntity.getPress());
+            }
+        }
     }
 
     @Override
