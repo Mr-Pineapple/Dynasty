@@ -29,5 +29,5 @@ description=""
     side="BOTH"
 
 [modproperties.dynasty]
-    catalogueItemIcon="minecraft:stripped_birch_wood"
+    catalogueItemIcon="dynasty:gold_coin"
     configuredBackground="minecraft:textures/block/stripped_birch_log.png"
