@@ -6,6 +6,8 @@ import co.uk.mrpineapple.dynasty.core.registry.BlockRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.EntityRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.ItemRegistry;
 import co.uk.mrpineapple.dynasty.core.registry.TileEntityRegistry;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -25,6 +27,12 @@ import java.util.UUID;
 public class Dynasty {
     public static final String ID = "dynasty";
     public static IModInfo modInfo;
+    public static final ItemGroup TAB = new ItemGroup(ID) {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ItemRegistry.GOLD_COIN.get());
+        }
+    };
 
     public Dynasty() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

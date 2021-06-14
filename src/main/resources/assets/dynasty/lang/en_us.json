@@ -11,5 +11,7 @@
   "dialogue.dynasty.basicvillager.meet":  "Nice to meet you.",
 
   "block.dynasty.coin_press": "Coin Press",
-  "block.dynasty.copper_ore": "Copper Ore"
+  "block.dynasty.copper_ore": "Copper Ore",
+
+  "itemGroup.dynasty": "Dynasty"
 }

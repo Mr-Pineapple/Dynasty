@@ -16,7 +16,7 @@ public class ItemRegistry {
 
 
     public static RegistryObject<Item> register(String name) {
-        RegistryObject<Item> item = ITEMS.register(name, () -> new Item(new Item.Properties()));
+        RegistryObject<Item> item = ITEMS.register(name, () -> new Item(new Item.Properties().tab(Dynasty.TAB)));
         return item;
     }
 
