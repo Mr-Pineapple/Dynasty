@@ -1,7 +1,6 @@
 package co.uk.mrpineapple.dynasty.client.entity.model;
 
 import co.uk.mrpineapple.dynasty.common.entity.neutral.GuardEntity;
-import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -12,9 +11,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class AbstractGuardModel<T extends GuardEntity> extends BipedModel<T> {
-    protected AbstractGuardModel(float p_i51070_1_, float p_i51070_2_, int p_i51070_3_, int p_i51070_4_) {
-        super(p_i51070_1_, p_i51070_2_, p_i51070_3_, p_i51070_4_);
+public abstract class AbstractGuardModel<T extends GuardEntity> extends MoreLimbBipedModel<T> {
+    protected AbstractGuardModel(float p_i51070_1_, float p_i51070_2_, boolean isMirrored) {
+        super(p_i51070_1_, p_i51070_2_, isMirrored);
     }
 
     @Override
